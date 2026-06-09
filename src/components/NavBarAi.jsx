@@ -28,6 +28,8 @@ export default function NavBarAi() {
   const { data: session } = authClient.useSession()
   const user = (session?.user)
 
+  // console.log('session user from NavBar', user)
+
   const handleLogOut = async() =>{
     await authClient.signOut();
   }
@@ -70,7 +72,7 @@ export default function NavBarAi() {
                 
                   <div className="flex items-center gap-4">
                     <Avatar size="sm">
-                        <Avatar.Image alt="John Doe" src={user?.name} />
+                        <Avatar.Image referrerPolicy="no-referrer" alt="John Doe" src={user?.name} />
                           <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
                         </Avatar>
                         
@@ -132,7 +134,29 @@ export default function NavBarAi() {
               ))}
             </ul>
 
-            <div className="mt-5 flex flex-col gap-3">
+
+{
+                
+                user? 
+                <>
+                
+                  <div className="flex justify-start gap-4 space-y-4 mt-4">
+                        <Avatar size="sm">
+                            <Avatar.Image referrerPolicy="no-referrer" alt="John Doe" src={user?.name} />
+                              <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
+                            
+                        </Avatar>
+                        
+                        <p className="text-white">{user?.name}</p>
+                        
+                  </div>
+                  <Button size="sm" variant="ghost" className='text-red-500 hover:border-red-500' onClick={handleLogOut}>Logout</Button>
+
+                </> : 
+                
+                <>
+                  
+                    <div className="mt-5 flex flex-col gap-3">
               <Link
                 href="/signin"
                 className="text-center text-violet-400"
@@ -147,6 +171,25 @@ export default function NavBarAi() {
                 Get Started
               </Link>
             </div>
+
+                </>
+              }
+
+            {/* <div className="mt-5 flex flex-col gap-3">
+              <Link
+                href="/signin"
+                className="text-center text-violet-400"
+              >
+                Sign In
+              </Link>
+
+              <Link
+                href="/register"
+                className="rounded-xl bg-violet-600 py-3 text-center text-white"
+              >
+                Get Started
+              </Link>
+            </div> */}
           </div>
         )}
       </div>

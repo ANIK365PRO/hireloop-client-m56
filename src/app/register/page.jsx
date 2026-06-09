@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 
 import { authClient } from "@/lib/auth-client";
 
+import {Description, Label, Radio, RadioGroup} from "@heroui/react";
+
+
 export default function RegisterPage() {
   const router = useRouter();
 
@@ -32,9 +35,10 @@ export default function RegisterPage() {
         password: user.password,
         name: user.name,
         image: user.image,
+        role: user.role
       });
 
-      console.log(data, error);
+      // console.log(data, error);
 
       if (error) {
         setError(error.message || "Registration failed");
@@ -65,6 +69,8 @@ export default function RegisterPage() {
         <p className="text-center text-gray-500 mb-6">
           Register your account
         </p>
+
+
 
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
@@ -103,7 +109,7 @@ export default function RegisterPage() {
             <input
               type="url"
               name="image"
-              placeholder="https://example.com/photo.jpg"
+              placeholder="Enter image URL"
               className="w-full border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -132,6 +138,39 @@ export default function RegisterPage() {
             </div>
           </div>
 
+           
+      {/* RadioGroup for role base authentication */}
+
+          <div className="flex flex-col gap-4">
+                <Label>Subscription plan</Label>
+                <RadioGroup defaultValue="seeker" name="role" orientation="horizontal">
+
+                  <Radio value="seeker">
+                    <Radio.Control>
+                      <Radio.Indicator />
+                    </Radio.Control>
+                    <Radio.Content>
+                      <Label>Job Seeker</Label>
+                      
+                    </Radio.Content>
+                  </Radio>
+
+                  <Radio value="recruiter">
+                    <Radio.Control>
+                      <Radio.Indicator />
+                    </Radio.Control>
+                    <Radio.Content>
+                      <Label>Recruiter</Label>
+                      
+                    </Radio.Content>
+                  </Radio>
+                 
+                </RadioGroup>
+          </div>
+        
+
+
+
           {error && (
             <div className="bg-red-100 text-red-600 px-3 py-2 rounded-lg text-sm">
               {error}
@@ -152,6 +191,9 @@ export default function RegisterPage() {
             {loading ? "Creating Account..." : "Sign Up"}
           </button>
         </form>
+
+
+
 
         <div className="mt-5 text-center text-sm">
           Already have an account?{" "}

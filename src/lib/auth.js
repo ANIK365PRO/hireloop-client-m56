@@ -11,10 +11,22 @@ const db = client.db(process.env.AUTH_DB_NAME);
 
 
 export const auth = betterAuth({
+  emailAndPassword: { 
+   enabled: true, 
+ }, 
+
   database: mongodbAdapter(db, {
     client
   }),
-   emailAndPassword: { 
-    enabled: true, 
-  }, 
+
+  
+  // role base authentication to additional fields. 
+
+  user: {
+    additionalFields: {
+      role: {
+        default: "seeker"
+      }
+    }
+  }
 });
