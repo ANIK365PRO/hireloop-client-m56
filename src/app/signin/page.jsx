@@ -40,10 +40,15 @@ export default function SignInPage() {
       if (data) {
         setMessage("Login successful!");
 
-        
-        router.push("/");
+        // router.push("/");
        
+      }if(data.user.role === 'recruiter'){
+        router.push("/dashboard/recruiter");
+
+      } else if(data.user.role === 'seeker'){
+        router.push("/");
       }
+      
     } catch (err) {
       setError(err.message || "Something went wrong");
     } finally {

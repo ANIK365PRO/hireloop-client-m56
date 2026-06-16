@@ -38,7 +38,7 @@ export default function Banner2() {
       {/* 1. Glow Effect behind the globe */}
       <div className="absolute inset-x-0 top-12 mx-auto w-[600px] h-[400px] bg-indigo-600/30 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* 2. Globe Background Image (Referencing hireBanner2.png) */}
+      {/* 2. globe Background Image (Referencing hireBanner2.png) */}
       <div 
         className="absolute inset-x-0 top-0 mx-auto w-full  bg-center bg-no-repeat bg-contain opacity-80 pointer-events-none "
         

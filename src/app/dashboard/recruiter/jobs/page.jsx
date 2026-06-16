@@ -1,4 +1,5 @@
 
+import { getLoggedInRecruiterCompany } from "@/lib/api/companies";
 import { getCompanyJObs } from "@/lib/api/jobs";
 import { Chip, Table } from "@heroui/react";
 import { Eye, Pencil, Trash2, MapPin, Wifi } from "lucide-react";
@@ -35,16 +36,23 @@ const STATUS_CHIP = {
 
 // ── component ─────────────────────────────────────────────
 
-const RecruiterJobs = async () => {
-  const companyId = "company_123"; // todo: replace with real company id
-  const jobs = await getCompanyJObs(companyId);
+const RecruiterJobsPage = async () => {
+
+  const company = await getLoggedInRecruiterCompany();
+  console.log('Logged in Recruiter Company in RecruiterJobsPage:', company); // ডিবাগিং এর জন্য কনসোলে লগ করা হচ্ছে
+
+
+
+  const companyId = company?._id; // todo: replace with real company id
+  const jobs = await getCompanyJObs(companyId) || [];
   return (
     <div className="p-4 md:p-6 max-w-6xl mx-auto space-y-5">
 
       {/* Header */}
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Job Listings</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Job Listings for 
+            <span className='text-orange-500'> {company?.name}</span></h2>
           <p className="text-sm text-gray-500 mt-0.5">
             {jobs?.length ?? 0} job{jobs?.length !== 1 ? "s" : ""} posted
           </p>
@@ -96,7 +104,7 @@ const RecruiterJobs = async () => {
 
                 {/* ✅ plain .map() — no items prop, no render function */}
                 <Table.Body>
-                  {jobs.map((job) => (
+                  {jobs?.map((job) => (
                     <Table.Row key={job._id}>
 
                       {/* Title + category */}
@@ -200,4 +208,4 @@ const RecruiterJobs = async () => {
   );
 };
 
-export default RecruiterJobs;
+export default RecruiterJobsPage;

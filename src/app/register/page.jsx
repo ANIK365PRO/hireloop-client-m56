@@ -38,7 +38,7 @@ export default function RegisterPage() {
         role: user.role
       });
 
-      // console.log(data, error);
+      console.log(data, error);
 
       if (error) {
         setError(error.message || "Registration failed");
