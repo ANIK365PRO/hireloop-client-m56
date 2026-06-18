@@ -10,7 +10,7 @@ const CompanyPage = async () => {
 
     const recruiterCompany = await getRecruiterCompany(user.id); // রিক্রুটারের কোম্পানির তথ্য API থেকে ফেচ করা হচ্ছে
     
-    console.log('Recruiter Company:', recruiterCompany); // ডিবাগিং এর জন্য কনসোলে লগ করা হচ্ছে
+    // console.log('Recruiter Company:', recruiterCompany); // ডিবাগিং এর জন্য কনসোলে লগ করা হচ্ছে
 
     return (
         <div>

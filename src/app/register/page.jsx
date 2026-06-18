@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { authClient } from "@/lib/auth-client";
 
@@ -10,7 +10,10 @@ import {Description, Label, Radio, RadioGroup} from "@heroui/react";
 
 
 export default function RegisterPage() {
+
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/signin";
 
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +52,7 @@ export default function RegisterPage() {
         setMessage("Sign up successful!");
 
         
-          router.push("/signin");
+          router.push(redirectTo); // রেজিস্টার করার পর রিডাইরেক্ট ইউআরএল এ ফিরে যাওয়া হচ্ছে
         
       }
     } catch (err) {
@@ -198,7 +201,7 @@ export default function RegisterPage() {
         <div className="mt-5 text-center text-sm">
           Already have an account?{" "}
           <Link
-            href="/signin"
+            href={`/signin?redirect=${redirectTo}`} // সাইন ইন পেজে রিডাইরেক্ট ইউআরএল পাঠানো হচ্ছে
             className="text-blue-600 font-medium"
           >
             Sign In

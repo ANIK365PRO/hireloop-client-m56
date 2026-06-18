@@ -39,7 +39,7 @@ const STATUS_CHIP = {
 const RecruiterJobsPage = async () => {
 
   const company = await getLoggedInRecruiterCompany();
-  console.log('Logged in Recruiter Company in RecruiterJobsPage:', company); // ডিবাগিং এর জন্য কনসোলে লগ করা হচ্ছে
+  // console.log('Logged in Recruiter Company in RecruiterJobsPage:', company); // ডিবাগিং এর জন্য কনসোলে লগ করা হচ্ছে
 
 
 

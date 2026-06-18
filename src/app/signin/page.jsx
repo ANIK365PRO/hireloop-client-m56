@@ -2,12 +2,17 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { authClient } from "@/lib/auth-client";
 
 export default function SignInPage() {
+
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
+
+
 
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -41,13 +46,15 @@ export default function SignInPage() {
         setMessage("Login successful!");
 
         // router.push("/");
+        router.push(redirectTo); // সাইন ইন করার পর রিডাইরেক্ট ইউআরএল এ ফিরে যাওয়া হচ্ছে
        
-      }if(data.user.role === 'recruiter'){
-        router.push("/dashboard/recruiter");
-
-      } else if(data.user.role === 'seeker'){
-        router.push("/");
       }
+      // if(data.user.role === 'recruiter'){
+      //   router.push("/dashboard/recruiter");
+
+      // } else if(data.user.role === 'seeker'){
+      //   router.push(redirectTo); // সাইন ইন করার পর রিডাইরেক্ট ইউআরএল এ ফিরে যাওয়া হচ্ছে
+      // }
       
     } catch (err) {
       setError(err.message || "Something went wrong");
@@ -130,7 +137,7 @@ export default function SignInPage() {
         <div className="mt-5 text-center text-sm">
           Don't have an account?{" "}
           <Link
-            href="/register"
+            href={`/register?redirect=${redirectTo}`} // রেজিস্টার পেজে রিডাইরেক্ট ইউআরএল পাঠানো হচ্ছে
             className="text-blue-600 font-medium"
           >
             Sign Up
