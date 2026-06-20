@@ -19,11 +19,13 @@ import { Link2, FileText, Globe, User, Mail, Briefcase } from "lucide-react";
 import { submitApplication } from "@/lib/actions/application";
 
 const JobApply = ({ job, applicant }) => {
+    // console.log(applicant)
   // Graceful fallback data for preview safety
   const jobId = job?._id ;
   const jobTitle = job?.title ;
   const companyName = job?.name ;
   const category = job?.category;
+  const applicantId = applicant?.id;
   const applicantName = applicant?.name ;
   const applicantEmail = applicant?.email ;
 
@@ -42,6 +44,7 @@ const JobApply = ({ job, applicant }) => {
         jobTitle,
         companyName,
         category,
+        applicantId,
         applicantEmail,
         applicantName,
         ...data

@@ -11,7 +11,7 @@ import Image from "next/image";
 const JobDetailsPage = async ({ params }) => {
   const { id } = await params;
 
-console.log(id , 'id');
+console.log(id , 'id params');
 
   const job = await getJobById(id);
 //   console.log(job, 'job');

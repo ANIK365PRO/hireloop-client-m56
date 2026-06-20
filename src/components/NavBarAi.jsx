@@ -20,7 +20,7 @@ export default function NavBarAi() {
     },
     {
       label: "Pricing",
-      href: "/pricing",
+      href: "/plans",
     },
   ];
 

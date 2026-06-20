@@ -17,8 +17,10 @@ export default function RegisterPage() {
 
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  // const [role, setRole] = useState("seeker");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -27,9 +29,13 @@ export default function RegisterPage() {
     setMessage("");
     setLoading(true);
 
+
+    
     try {
       const formData = new FormData(e.currentTarget);
       const user = Object.fromEntries(formData.entries());
+      
+      const plan = user?.role === 'seeker' ? 'seeker_free' : 'recruiter_free';
 
       console.log('user', user)
 
@@ -38,7 +44,8 @@ export default function RegisterPage() {
         password: user.password,
         name: user.name,
         image: user.image,
-        role: user.role
+        role: user.role,
+        plan
       });
 
       console.log(data, error);
