@@ -3,12 +3,24 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Bars, Xmark } from "@gravity-ui/icons";
-import { authClient } from "@/lib/auth-client";
+import { authClient} from "@/lib/auth-client";
 import { Avatar, Button } from "@heroui/react";
 
 export default function NavBarAi() {
   const [isOpen, setIsOpen] = useState(false);
 
+  // for get seeker/(user)
+  const { data: session } = authClient.useSession()
+  const user = (session?.user)
+
+  // console.log('session user from NavBar', user)
+
+  
+  const handleLogOut = async() =>{
+    await authClient.signOut();
+  }
+
+  
   const navLinks = [
     {
       label: "Browse Jobs",
@@ -24,15 +36,26 @@ export default function NavBarAi() {
     },
   ];
 
-  // for get seeker(user)
-  const { data: session } = authClient.useSession()
-  const user = (session?.user)
-
-  // console.log('session user from NavBar', user)
-
-  const handleLogOut = async() =>{
-    await authClient.signOut();
+  // role base dashboard
+  const dashboardLinks = {
+    seeker: '/dashboard/seeker',
+    recruiter: '/dashboard/recruiter',
+    admin: '/dashboard/admin'
   }
+
+  if (user?.email) {
+    navLinks.push(
+      {
+        label: 'Dashboard',
+        href: dashboardLinks[user?.role || 'seeker']
+      }
+    )
+  }
+
+
+
+  
+
 
 
   return (
